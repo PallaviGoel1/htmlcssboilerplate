@@ -4,8 +4,19 @@ const resultsModal = new bootstrap.Modal(document.getElementById("resultsModal")
 
 document.getElementById("status").addEventListener("click", e => getStatus(e));
 
+function processOptions(form){
+    let optArray= [];
+    for (let entry of form.entries()){
+        if (entry[0]==="option"){
+            optArray.push(entry[1]);
+        }
+    }
+    form.delete("option");
+    form.append("option", optArray.join());
+    return form;
+}
 async function postForm(e){
-    const form = new FormData(document.getElementById("checksform"));
+    const form = processOptions(new FormData(document.getElementById("checksform")));
 
    /* for(let e of form.entries()){
         console.log(e);
